@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:omnispace/App/Features/News/Model/news_model.dart';
-import 'package:omnispace/App/Service/api/Services/api_constants.dart';
+import 'package:omnispace/App/Service/api/api_constants.dart';
 import 'package:omnispace/App/Service/api/api_service.dart';
 
 import '../../../Widgets/top_card.dart';

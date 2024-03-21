@@ -1,8 +1,8 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:omnispace/App/Features/News/Model/news_model.dart';
-import 'package:omnispace/App/Service/api/Services/api.dart';
-import 'package:omnispace/App/Service/api/Services/api_constants.dart';
+import 'package:omnispace/App/Service/api/api.dart';
+import 'package:omnispace/App/Service/api/api_constants.dart';
 
 class ApiGets {
   final baseUrl = APIConst.newsbaseurl;

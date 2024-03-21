@@ -1,8 +1,8 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:omnispace/App/Service/api/Services/alert_dialog.dart' as Alert;
-import 'package:omnispace/App/Service/api/Services/api_constants.dart';
-import 'package:omnispace/App/Service/api/Services/api_exceptions.dart';
+import 'package:omnispace/App/Service/api/alert_dialog.dart' as Alert;
+import 'package:omnispace/App/Service/api/api_constants.dart';
+import 'package:omnispace/App/Service/api/api_exceptions.dart';
 
 class API {
   Alert.AlerterDialog alertDialog = Alert.AlerterDialog();
