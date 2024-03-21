@@ -10,4 +10,10 @@ class APIConst {
   static const String beststories = '/beststories';
   // crypto api
   static const String cryptobaseurl = '/markets';
+  // weather api
+  static const String weatherbaseurl = '/weather';
+  static const String forecastloc =
+      '/forecast'; // /:location/:numberOfDaysweather';
+  static const String forecastlat = '/forecast'; // /:latitude/:longitude';
+  static const String searchloc = '/search'; // /:location';
 }

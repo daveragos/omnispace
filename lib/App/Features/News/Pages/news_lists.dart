@@ -26,6 +26,13 @@ class _NewsListsState extends State<NewsLists> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.grey[400],
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {},
+        child: const Icon(
+          Icons.support_agent_rounded,
+          color: Colors.teal,
+        ),
+      ),
       appBar: AppBar(
         backgroundColor: Colors.teal[600],
         title: const Text('OmniSpace'),
@@ -51,9 +58,21 @@ class _NewsListsState extends State<NewsLists> {
                     itemCount: snapshot.data!.length,
                     itemBuilder: (context, index) {
                       return ListTile(
-                        title: Text(snapshot.data?[index]?.title ?? 'No title'),
-                        subtitle: Text(snapshot.data?[index]?.url ?? 'No url'),
-                      );
+                          leading: const Icon(
+                            Icons.article,
+                            size: 40,
+                            color: Colors.teal,
+                          ),
+                          title: Text(
+                            snapshot.data?[index]?.title ?? 'No title',
+                            style: const TextStyle(
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          subtitle: Text(snapshot.data?[index]?.url ?? 'No url',
+                              style: const TextStyle(
+                                fontWeight: FontWeight.w100,
+                              )));
                     },
                   );
                 }
