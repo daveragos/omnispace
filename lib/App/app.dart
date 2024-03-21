@@ -11,8 +11,10 @@ class OmniSpace extends StatefulWidget {
 class _OmniSpaceState extends State<OmniSpace> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: NewsLists(),
+    return const MaterialApp(
+      home: Scaffold(
+        body: NewsLists(),
+      ),
     );
   }
 }
