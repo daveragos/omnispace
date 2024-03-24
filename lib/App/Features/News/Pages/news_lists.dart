@@ -16,7 +16,7 @@ class _NewsListsState extends State<NewsLists> {
   final ApiGets _apiGets = ApiGets();
 
   Future<List<News?>> getNews({required BuildContext context}) async {
-    print('object');
+    print('news list :');
     final news =
         await _apiGets.getNews(route: APIConst.newstories, context: context);
     return news;
