@@ -5,11 +5,11 @@ import 'package:omnispace/App/Service/api/api.dart';
 import 'package:omnispace/App/Service/api/api_constants.dart';
 
 class ApiGets {
-  final baseUrl = APIConst.newsbaseurl;
   final API api = API();
   Future<List<News?>> getNews(
       {required String route, required BuildContext context}) async {
     List<News?> result;
+    final baseUrl = APIConst.newsbaseurl;
     try {
       Response response =
           await api.getRequest(route: baseUrl + route, context: context);
@@ -29,5 +29,13 @@ class ApiGets {
       }
     }
     return result;
+  }
+
+  Future<Response> getWeather(
+      {required String route, required BuildContext context}) async {
+    final baseUrl = APIConst.weatherbaseurl;
+    Response response =
+        await api.getRequest(route: baseUrl + route, context: context);
+    return response;
   }
 }

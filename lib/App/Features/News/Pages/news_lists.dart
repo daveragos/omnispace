@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:omnispace/App/Features/News/Model/news_model.dart';
 import 'package:omnispace/App/Service/api/api_constants.dart';
 import 'package:omnispace/App/Service/api/api_service.dart';
+import 'package:omnispace/App/Service/location/location.dart';
 
 import '../../../Widgets/top_card.dart';
 
@@ -19,6 +20,13 @@ class _NewsListsState extends State<NewsLists> {
     print('news list :');
     final news =
         await _apiGets.getNews(route: APIConst.newstories, context: context);
+    Location location = Location();
+    await location.getCurrentLocation();
+    final lat = location.latitude;
+    final lon = location.longitude;
+    final weather = await _apiGets.getWeather(
+        route: APIConst.forecastlat + '/:$lat/:$lon', context: context);
+    print('weather : $weather');
     return news;
   }
 
