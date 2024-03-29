@@ -42,7 +42,13 @@ class _NewsListsState extends State<NewsLists> {
         ),
       ),
       appBar: AppBar(
-        backgroundColor: Colors.teal[600],
+        // backgroundColor: Colors.teal[400],
+        leading: Padding(
+          padding: const EdgeInsets.all(10.0),
+          child: Image.asset(
+            'assets/omnispace.png',
+          ),
+        ),
         title: const Text('OmniSpace'),
       ),
       body: Column(
