@@ -42,15 +42,40 @@ class _NewsListsState extends State<NewsLists> {
         ),
       ),
       appBar: AppBar(
-        // backgroundColor: Colors.teal[400],
-        leading: Padding(
-          padding: const EdgeInsets.all(10.0),
-          child: Image.asset(
-            'assets/omnispace.png',
+          // backgroundColor: Colors.teal[700],
+          leading: Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: Image.asset(
+              'assets/omnispace.png',
+            ),
           ),
-        ),
-        title: const Text('OmniSpace'),
-      ),
+          centerTitle: true,
+          title: RichText(
+            text: const TextSpan(
+              children: <TextSpan>[
+                TextSpan(
+                  text: 'Omni',
+                  style: TextStyle(
+                    color: Colors.teal,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 20,
+                    letterSpacing: 1.5,
+                    fontFamily: 'Roboto',
+                  ),
+                ),
+                TextSpan(
+                  text: 'Space',
+                  style: TextStyle(
+                    color: Colors.grey,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 20,
+                    letterSpacing: 1.5,
+                    fontFamily: 'Roboto',
+                  ),
+                ),
+              ],
+            ),
+          )),
       body: Column(
         children: [
           TopCard(),
@@ -83,10 +108,13 @@ class _NewsListsState extends State<NewsLists> {
                               fontWeight: FontWeight.bold,
                             ),
                           ),
-                          subtitle: Text(snapshot.data?[index]?.url ?? 'No url',
-                              style: const TextStyle(
-                                fontWeight: FontWeight.w100,
-                              )));
+                          subtitle: Text(
+                            snapshot.data?[index]?.url ?? 'No url',
+                            overflow: TextOverflow.ellipsis,
+                            style: const TextStyle(
+                              fontWeight: FontWeight.w400,
+                            ),
+                          ));
                     },
                   );
                 }
