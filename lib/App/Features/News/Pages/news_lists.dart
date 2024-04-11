@@ -1,4 +1,8 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:linkpeek/linkpeek.dart';
+import 'package:linkpeek/models/linkpeek.model.dart';
 import 'package:omnispace/App/Features/News/Model/news_model.dart';
 import 'package:omnispace/App/Service/api/api_constants.dart';
 import 'package:omnispace/App/Service/api/api_service.dart';
@@ -15,11 +19,30 @@ class NewsLists extends StatefulWidget {
 
 class _NewsListsState extends State<NewsLists> {
   final ApiGets _apiGets = ApiGets();
+  LinkPeekModel? linkPeekModel;
+  List<LinkPeekModel> linkPeekModelList = [];
 
-  Future<List<News?>> getNews({required BuildContext context}) async {
+  Future<List<LinkPeekModel>> getNews({required BuildContext context}) async {
     print('news list :');
     final news =
         await _apiGets.getNews(route: APIConst.newstories, context: context);
+    for (var i = 0; i < news.length; i++) {
+      final url = news[i]?.url;
+      final linkPeek = await LinkPeek.fromUrl(url!);
+      linkPeekModel = LinkPeekModel(
+        title: linkPeek.title,
+        description: linkPeek.description,
+        thumbnail: linkPeek.thumbnail,
+        url: linkPeek.url,
+        webIcon: linkPeek.webIcon,
+      );
+      linkPeekModelList.add(linkPeekModel!);
+    }
+
+    return linkPeekModelList;
+  }
+
+  void getLocation() async {
     Location location = Location();
     await location.getCurrentLocation();
     final lat = location.latitude;
@@ -27,7 +50,6 @@ class _NewsListsState extends State<NewsLists> {
     final weather = await _apiGets.getWeather(
         route: APIConst.forecastlat + '/:$lat/:$lon', context: context);
     print('weather : $weather');
-    return news;
   }
 
   @override
@@ -80,7 +102,7 @@ class _NewsListsState extends State<NewsLists> {
         children: [
           TopCard(),
           Expanded(
-            child: FutureBuilder<List<News?>>(
+            child: FutureBuilder<List<LinkPeekModel>>(
               future: getNews(context: context),
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
@@ -97,24 +119,45 @@ class _NewsListsState extends State<NewsLists> {
                     itemCount: snapshot.data!.length,
                     itemBuilder: (context, index) {
                       return ListTile(
-                          leading: const Icon(
-                            Icons.article,
-                            size: 40,
-                            color: Colors.teal,
-                          ),
-                          title: Text(
-                            snapshot.data?[index]?.title ?? 'No title',
-                            style: const TextStyle(
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          subtitle: Text(
-                            snapshot.data?[index]?.url ?? 'No url',
-                            overflow: TextOverflow.ellipsis,
-                            style: const TextStyle(
-                              fontWeight: FontWeight.w400,
-                            ),
-                          ));
+                        title: Text(snapshot.data![index].title!),
+                        subtitle: Text(snapshot.data![index].description!),
+                        leading: Image.network(
+                          snapshot.data![index].thumbnail!,
+                          errorBuilder: (context, error, stackTrace) {
+                            return const Icon(Icons.error);
+                          },
+                        ),
+                        onTap: () {
+                          showDialog(
+                            context: context,
+                            builder: (context) {
+                              return AlertDialog(
+                                title: Text(snapshot.data![index].title!),
+                                content: Column(
+                                  children: [
+                                    Image.network(
+                                      snapshot.data![index].thumbnail!,
+                                      errorBuilder:
+                                          (context, error, stackTrace) {
+                                        return const Icon(Icons.error);
+                                      },
+                                    ),
+                                    Text(snapshot.data![index].description!),
+                                  ],
+                                ),
+                                actions: [
+                                  TextButton(
+                                    onPressed: () {
+                                      Navigator.pop(context);
+                                    },
+                                    child: const Text('Close'),
+                                  ),
+                                ],
+                              );
+                            },
+                          );
+                        },
+                      );
                     },
                   );
                 }
